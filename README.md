@@ -137,3 +137,5 @@ You can group pages together without affecting the URL structure. You might want
 - /blog - blog home
 - /blog/:title - blog post
 - /contact - contact page
+
+## 5. Route Grouping
