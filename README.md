@@ -133,9 +133,50 @@ You can group pages together without affecting the URL structure. You might want
   Above, we created two groups, marketing and dashboard. Each group has their own root layout, so we don't need a single root layout here. Also, the URL structure is not affected. The path for the dashboard home is /home and not /dashboard/home. And the route for a blog post would be /blog/learn-to-code and not /marketing/blog/learn-to-code. The group folders are ignored by the router. This means you have to be aware of potential route conflicts. If the marketing group had a home folder with a page, it would have a conflicting route with the dashboard home page.
 
 #### <u>Routes for our app</u>
+
 - / - home
 - /blog - blog home
 - /blog/:title - blog post
 - /contact - contact page
 
 ## 5. Route Grouping
+
+## Section 03: Rendering
+
+## 6. Layout Components
+
+#### <u>Head component</u>
+
+Our app needs a head component in the app directory. This will hold the meta and title tags for our application.
+
+```javascript
+// ./app/head.tsx
+export default function Head() {
+  return (
+    <>
+      <title></title>
+      <meta name='viewport' content='width=device-width, initial-scale=1' />
+    </>
+  )
+}
+```
+
+#### <u>Layouts</u>
+
+Layouts are components that wrap our pages. We can use them when we want to keep certain UI elements on page across routes. Things like a navigation bar, footer, layout, etc. We need to create a root layout. You must have a root layout when using the app directory.
+
+```javascript
+// ./app/layout.tsx
+export default function RootLayout({ children }) {
+  return (
+    <html lang='en'>
+      <head />
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+#### <u>Nested Layouts</u>
+
+It's required to have a root layout, but we can also have multiple nested layouts that render inside each other. You simply have to create a layout file in the route folder. By default, the layouts will nest.
