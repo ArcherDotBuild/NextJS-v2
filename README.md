@@ -180,3 +180,66 @@ export default function RootLayout({ children }) {
 #### <u>Nested Layouts</u>
 
 It's required to have a root layout, but we can also have multiple nested layouts that render inside each other. You simply have to create a layout file in the route folder. By default, the layouts will nest.
+
+## 7. Navigation
+
+NextJS does so much behind the scene when it comes to handling navigation for our pages. From the docs:
+
+**How Navigation Works**
+
+- A route transition is initiated using or calling router.push().
+- The router updates the URL in the browser’s address bar.
+- The router avoids unnecessary work by re-using segments that haven't changed (e.g. shared layouts) from the client-side cache. This is also referred to as partial rendering.
+- If the conditions of soft navigation are met, the router fetches the new segment from the cache rather than the server. If not, the router performs a hard navigation and fetches the Server Component payload from the server.
+- If created, loading UI is shown from the server while the payload is being fetched.
+- The router uses the cached or fresh payload to render the new segments on the client.
+
+#### <u>Using the Link component</u>
+
+In place of an anchor tag, we can use the Link component from next/link to handle click interactions that translate to page navigations. It's easier than ever to use.
+
+```javascript
+import Link from 'next/link'
+
+export default function Page() {
+  return (
+    <div>
+      <Link href='/blog'>Blog</Link>
+    </div>
+  )
+}
+```
+
+For dynamic routes, we can just interpolate.
+
+```javascript
+import Link from 'next/link'
+
+export default function Blog() {
+  return (
+    <div>
+      <Link href={`/blog/${post.title}`}>Post</Link>
+    </div>
+  )
+}
+```
+
+#### <u>Programatic usage</u>
+
+If you need to navigate between pages programmatically instead of when a user clicks. First, you must understand that this only works in client components, we'll get there later. NextJS provides a hook we can use that creates a router object for that has helpful navigation methods on it.
+
+```javascript
+'use client'
+
+import { useRouter } from 'next/navigation'
+
+export default function Page() {
+  const router = useRouter()
+
+  return (
+    <button type='button' onClick={() => router.push('/blog')}>
+      Blog
+    </button>
+  )
+}
+```
